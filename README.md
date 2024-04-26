@@ -15,6 +15,8 @@
 ### Logo o output seria uma imagem com os pixels iguais a [255, 166, 119, 55]
 ---
 ## Questão 2:
+### A imagem solicitada com o filtro de inversão está exibida abaixo:
+![bluegill_invertida](bluegill_INVERTIDA.png)
 ---
 ## Questão 3:
 ---
