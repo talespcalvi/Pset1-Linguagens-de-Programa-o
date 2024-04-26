@@ -1,1 +1,1 @@
-# Pset1-Linguagens-de-Programa-o
+# Pset1 Linguagens de Programação
