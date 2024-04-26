@@ -19,6 +19,9 @@
 ![bluegill_invertida](bluegill_INVERTIDA.png)
 ---
 ## Questão 3:
+### 0.00 -0.07 0.00
+### -0.45 1.20 -0.25
+### 0.00 -0.12 0.00
 ---
 ## Questão 4:
 ---
