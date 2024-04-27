@@ -6,7 +6,7 @@
 ### Pset é um trabalho passado para os alunos do 3° período do Curso de Ciências da Computação, este no caso, faz parte da disciplina Linguagens de Programação e é um trabalho original adaptado do MIT, o PSET1 MIT 6.009.
 ---
 ## Questão 1:
-### Para saber o resultado, é necessário subtrair o valor 255 pelo valor de cada pixel, dessa forma:
+ Para saber o resultado, é necessário subtrair o valor 255 pelo valor de cada pixel, dessa forma:
 ### 1° pixel: 255 - 29 = 226
 ### 2° pixel: 255 - 89 = 166
 ### 3° pixel: 255 - 136 = 119
