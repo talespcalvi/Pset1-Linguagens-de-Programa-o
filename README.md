@@ -33,8 +33,15 @@
 ### Logo, o valor do pixel central é aproximadamente 32.76.
 ---
 ## Questão 4:
+### A imagem solicitada com o o kernel aplicado está exibida abaixo:
+![pigbird_q3](pigbird_Q3.png)
 ---
 ## Questão 5:
+### Para responder essa pergunta será usado de exemplo o seguinte kernel:
+| 1 | 2 | 3 |
+| - | - | - |
+| 4 | 5 | 6 |
+| 7 | 8 | 9 |
 ---
 ## Questão 6:
 ---
