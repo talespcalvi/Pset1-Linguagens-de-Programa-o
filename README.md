@@ -37,13 +37,20 @@
 ![pigbird_q3](pigbird_Q3.png)
 ---
 ## Questão 5:
-### Para responder essa pergunta será usado de exemplo o seguinte kernel:
+#### Para responder essa pergunta será usado de exemplo o seguinte kernel:
 | 1 | 2 | 3 |
 | - | - | - |
 | 4 | 5 | 6 |
 | 7 | 8 | 9 |
+#### Aplicando esse kernel a formula Sx,y = round(2Ix,y - Bx,y) levará ao seguinte cálculo:
+
+#### Sx,y = round(2*(Ix-1, y-1) * 1 + (Ixx, y-1) * 2 + (Ix+1, y-1) * 3 + (Ix-1, y) * 4 + (Ix, y) * 5 + (Ix+1, y) * 6 + (Ix-1, y+1) * 7 + (Ix, y+1) * 8 + (Ix+1, y+1) * 9 ) - Bx,y
+![python_focada](python_FOCADA.png)
 ---
 ## Questão 6:
+#### Ambos os kernels são responsáveis por detectar bordas na imagem, sendo o kernel Kx responsável por detectar variações horizontais e o kernel Ky responsável por detectar variações verticais. O uso dos dois juntos é capaz de detectar bordas em ambas direções.
+### Imagem gerada com o uso desses kernels:
+![construct_bordas](construct_BORDAS.png)
 ---
 ## Questão 7:
 ---
