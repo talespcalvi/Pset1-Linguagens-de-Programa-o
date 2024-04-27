@@ -7,10 +7,10 @@
 ---
 ## Questão 1:
 ### Para saber o resultado, é necessário subtrair o valor 255 pelo valor de cada pixel, dessa forma:
-1° pixel: 255 - 29 = 226
-2° pixel: 255 - 89 = 166
-3° pixel: 255 - 136 = 119
-4° pixel: 255 - 200 = 55
+ 1° pixel: 255 - 29 = 226
+ 2° pixel: 255 - 89 = 166
+ 3° pixel: 255 - 136 = 119
+ 4° pixel: 255 - 200 = 55
 
 ### Logo o output seria uma imagem com os pixels iguais a [255, 166, 119, 55]
 ---
