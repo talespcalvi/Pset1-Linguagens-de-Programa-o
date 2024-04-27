@@ -52,5 +52,4 @@
 ### Imagem gerada com o uso desses kernels:
 ![construct_bordas](construct_BORDAS.png)
 ---
-## Questão 7:
----
+
