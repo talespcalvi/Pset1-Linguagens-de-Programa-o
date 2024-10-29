@@ -3,86 +3,57 @@ Aluno: Tales Paiva Calvi
 Turma: CC4M
 
 	Inicialmente para a implementação do pset1 é pedido para utilizar o filtro de inversão, entretanto antes de realmente trabalhar 
-na função para isso, denominada 'invertida()' é necessário corrigir erros de outras funções que agem para que essa funcione. A primeira
-coisa que se percebe é que a função 'aplicar_por_pixel()' já possui um erro de identação na linha onde diz 'for y in 
-range(resultado.altura), esse erro é corrigido acertando o espaçamento da linha 'resultado.set_pixel(y, x, nova_cor) colocando a alinhada
-com a linha acima. Trabalhando dentro desse loop ainda é necessário corrigir outro erro, nessa mesma linha que possuia um erro de 
-identação era necessário corrigir os parâmetros que a função recebe, nesse caso a ordem de x e y estavam invertida sendo assim corrigida
-para 'resultado.set_pixel(x, y, nova_cor). Outro erro já claro dentro dessa função está no parâmetros que os loops for recebem, onde 
-recebem 'resultado.largura' e 'resultado.altura', então é trocado 'resultado' por 'self' em ambos para que funcione corretamente, dentro
-desse loop também são apagadas as linhas 'nova_cor = ""' e 'y = ""' pois ambas não são necessárias para o funcionamento do código. Por 
-fim nessa função, existe um erro na primeira linha dela onde a posição de largura e altura estão invertidas, então na linha onde está 
-escrito 'resultado = Imagem.nova(self.altura, self.largura)' é corrigido para 'resultado = Imagem.nova(self.largura, self.altura)'.
-
-	Partindo agora para as funções acima, na função 'get_pixel' é necessário implementar a fórmula de row-major-order para garantir 
-que os pixels sejam percorridos corretamente ao uso da função, então no return é adcionado essa fórmula, assim indo de 'return 
-self.pixels[x, y]' para 'return self.pixels[(self.largura * y) + x]'. O mesmo é necessário fazer na função 'set_pixel' indo de 
-'self.pixels[x, y] = c' para 'self.pixels[(self.largura * y) + x] = c'.
-	Podemos agora finalmente trabalhar na função 'invertida()', essa que é uma função bem simples e que estava implementada, a única
-correção necessária a fazer é acertar o valor '256' para '255' que é o intervalo correto de tons de cinza, assim de 'return 
-self.aplicar_por_pixel(lambda c: 256 - c)' vai para 'return self.aplicar_por_pixel(lambda c: 255 - c)'.
-
+na função 'invertida()' é necessário corrigir erros de outras funções que agem para que essa funcione. A primeira coisa que se percebe é
+que a função 'aplicar_por_pixel()' já possui um erro de identação no loop for para o y, esse erro é corrigido acertando o espaçamento da
+linha 'resultado.set_pixel(y, x, nova_cor). Outro erro, nessa mesma linha era necessário corrigir os parâmetros que a função recebe, a 
+ordem de x e y estavam invertidas sendo corrigida para 'resultado.set_pixel(x, y, nova_cor). Masi um erro está no parâmetros que os loops
+for recebem, onde recebem 'resultado.largura' e 'resultado.altura', então é trocado 'resultado' por 'self' em ambos, dentro desse loop
+também são apagadas as linhas 'nova_cor = ""' e 'y = ""' pois não são necessárias para o funcionamento do código. Por fim existe um erro
+na primeira linha dela onde a posição de largura e altura estão invertidas, é corrigido para 'resultado = Imagem.nova(self.largura, 
+self.altura)'.
+	Partindo para a função 'get_pixel' é necessário implementar a fórmula de row-major-order para garantir que os pixels sejam
+percorridos corretamente, então no return é adcionado essa fórmula, ficando 'return self.pixels[(self.largura * y) + x]'. O mesmo é
+preciso na função ficando 'self.pixels[(self.largura * y) + x] = c'.
+	Trabalhando na função 'invertida()', a única correção necessária é acertar o valor '256' para '255' que é o intervalo correto de tons de cinza, ficando 'return self.aplicar_por_pixel(lambda c: 255 - c)'.
 	Após isso é pedido para implementar uma função para utilizar a correlação de kernels com as imagens que é a forma que se aplica
-outros filtros a elas, para isso é preciso implementar uma função que aplique a fórmula da correlação aos pixels da imagem, essa fórmula 
-no caso multiplica o valor presente em uma posição de uma matriz(kernel) ao valor do pixel de mesma posição em um parte secionada da 
-imagem, faz isso para cada pixel da parte secionada e soma os resultados para gerar um valor novo, para assim alterar o valor de apenas 
-um dos pixels da imagem, ou seja, para uma matriz(kernel) 3x3, seria selecionado um pixel da imagem para ser alterado, os pixels em volta
-dele seriam utilizados, para que forme uma matriz 3x3 também e dessa forma o valor do pixel de posição (1,1) será multiplicado pelo valor
-da matriz(kernel) de posição (1,1), e assim respectivamente para cada pixel da parte secionada da imagem da matriz(kernel), esses valores 
-serão somados e o resultado dessa soma será o valor do novo pixel da imagem.
-	Para implementar essa função chamada 'aplicar_correlação' essa irá receber a própria instância de si mesma e um kernel, sendo 
-esse escrito especificando primeiro suas medidas (3,3 ou 2,2) e logo após sua composição. Após isso assim, como as funções anteriores ela
-retornará uma imagem que será criada da mesma forma 'resultado = Imagem.nova(self.largura, self.altura)', também é necessário calcular o
-tamanho do kernel com 'tamanho_kernel = len(kernel) // 2' e depois, e depois é feito o uso de loops para percorrer a imagem e também o 
-kernel utilizado, no caso com o cálculo do tamanho do kernel feito antes é garantido que no loop as partes da imagem que serão secionadas
-para aplicar a correlação terão as mesmas medidas do kernel. Ainda falando do loop para percorrer a imagem, ele é feito assim como na 
-função 'aplicar_pixel()' 'for x in range(resultado.largura):' e dentro desse for 'for y in range(resultado.altura):', dentro desse for 
-setado que a soma é igual a zero para garantir que o resultado saia corretamente por meio de 'soma = 0.0' e é feito mais um loop como o
-anterior para percorrer o kernel, feito da seguinte forma 'for i in range(len(kernel)):' e dentro desse for 'for j in 
-range(len(kernel[i])):', dentro desse for são calculadas as coordenadas dos pixel vizinhos por meio de 'pixel_x = x - tamanho_kernel + j'
-e 'pixel_y = y - tamanho_kernel + i' e é calculado produto entre o valor do pixel e o valor correspondente do kernel por meio de 'soma +=
-self.acertar_borda(pixel_x, pixel_y) * kernel[i][j] '. Por fim no loop para o x é setado por meio da função 'set_pixel' aplicada a imagem 
-resultada criada no começo da função. A última coisa em relação a essa função que acaba sendo preciso ser feita é a adição de uma 
-condicional para o uso de um kernel como tupla ser funcional, isso é feito por meio de um if que caso o kernel for uma tupla ele será 
-setado como 'kernel = kernel[2]'.
+outros filtros a elas, para implementar essa função chamada 'aplicar_correlação' que recebe uma instância de si mesma(self) e um kernel,
+sendo escrito especificando primeiro suas medidas (x, y) e logo após seus valores. Após isso, é necessário calcular o tamanho do kernel
+com 'tamanho_kernel = len(kernel) // 2' e depois, e depois é feito o uso de loops para percorrer a imagem e o kernel utilizado. Ainda 
+falando do loop para percorrer a imagem, ele é feito assim como na função 'aplicar_pixel()', dentro desse for é setado que a soma é igual
+a zero para garantir que o resultado saia corretamente e é feito mais um loop como o anterior para percorrer o kernel, feito da seguint
+e forma 'for i in range(len(kernel)):' e dentro desse for 'for j in range(len(kernel[i])):', dentro desse for são calculadas as coordenadas dos pixel vizinhos por meio de 'pixel_x = x - tamanho_kernel + j' e 'pixel_y = y - tamanho_kernel + i' e é calculado produto
+entre o valor do pixel e o valor correspondente do kernel por meio de 'soma += self.acertar_borda(pixel_x, pixel_y) * kernel[i][j] '. Por
+fim no loop para o x é usada a função 'set_pixel' aplicada a imagem resultada criada no começo da função. A última coisa em relação a
+essa função é a adição de uma condicional para o uso de um kernel como tupla ser funcional, isso é feito por meio de um if que caso o
+kernel for uma tupla ele será setado como 'kernel = kernel[2]'.
 	Apesar dessa função aplicar a correlação corretamente ela infelizmente não garante que todos pixels fiquem dentro limite da 
-imagem, por isso deve-se implementar uma função para garantir que isso ocorra, por isso é feita a função 'acertar_borda()', que recebe
-sua própria instância, x e y, ela garante que x e y estejam dos limites com os cálculos 'x = max(0, min(x, self.largura - 1))' para x e
-'y = max(0, min(y, self.altura - 1))' para y, por fim retorna a cor na posição (x, y) correta com 'return self.get_pixel(x, y)'.
-
-	Agora para implementar a funcionalidade de borrar a imagem é criada a função 'borrada()', ela funciona de forma similar, com a 
-correlação, entretanto com kernel específicos, nesse caso, são kernels com valores identicos que somam 1, e para ter diversos níveis de 
-desfoque é melhor implementar uma forma de gerar esse kernel dentro da função, apenas fornecendo o valor para o tamanho do kernel 
-desejado. A função se inicia recebendo como parâmetro uma instância de si mesma e um valor 'n' que será para decidir o tamanho do kernel
-e assim o nível de desfoque, dentro dela será ajustado o tamanho desse kernel com 'kernel_tamanho = 1 / (n * n)' e criado por meio de um 
-loop da seguinte forma 'kernel = [[kernel_tamanho for _ in range(n)] for _ in range(n)]', após isso é apenas necessário aplicar a 
-correlação a ele 'resultado = self.aplicar_correlacao(kernel)' e aplicar ele à imagem com 'resultado = resultado.aplicar_por_pixel(lambda
-c: max(min(round(c), 255), 0))' utilizando funções para arrendondas os valores e garantir que os valores estejam no intervalo de (0, 255).
-	
+imagem, por isso deve-se implementar uma função para garantir que isso ocorra. É feita a função 'acertar_borda()', que recebe sua própria
+instância, x e y, ela garante que x e y estejam dos limites com os cálculos 'x = max(0, min(x, self.largura - 1))' para x e 'y = max(0,
+min(y, self.altura - 1))' para y, por fim retorna a cor na posição (x, y) correta com 'return self.get_pixel(x, y)'.
+	Agora para implementar a funcionalidade de borrar a imagem é criada a função 'borrada()', ela utiliza kernels com valores
+idênticos que somam 1, e para ter diversos níveis de desfoque é gerado o kernel dentro da função, apenas fornecendo o valor para o
+tamanho desejado. A função se inicia recebendo como parâmetro 'self' e um valor 'n' que será para decidir o tamanho do kernel e assim o
+nível de desfoque, dentro dela será ajustado o tamanho desse kernel com 'kernel_tamanho = 1 / (n * n)' e criado por meio de um loop da
+seguinte forma 'kernel = [[kernel_tamanho for _ in range(n)] for _ in range(n)]', após isso aplica-se a correlação com 'resultado =
+self.aplicar_correlacao(kernel)' e aplicar à imagem com 'resultado = resultado.aplicar_por_pixel(lambda c: max(min(round(c), 255), 0))'
+utilizando funções para arrendondar os valores e garantir que os valores estejam no intervalo de (0, 255).
 	Para a implementação do filtro de nitidez é necessário fazer uma subtração de uma imagem borrada com a imagem original, isso 
-resultará na imagem focada, e pode ser transcrevida como a fórmula 'Sx,y = round(2Ix,y - Bx,y)' obviamente sendo feita para cada pixel da 
-imagem. Em código então a função 'focada()' assim como a de desfoque recebe sua própria instância e um valor n para definir o nível de 
-nitidez, começa com a criação de uma imagem borrada que receberá o mesmo valor de n fornecido nos parâmetros 'img_borrada = 
-self.borrada(n)', é feita uma função para calcular o novos valores do pixel utilizando a fórmula antes dita, ela recebe o valor do pixel 
-da imagem original e o valor do pixel da imagem borrada, após isso aplica o cálculo com 'novo_pixel = (2 * cor - borrada)' e retorna o 
-'novo_pixel'. Após isso é preciso aplicar esse cálculo a cada pixel da imagem, então ele é colocado dentro de um loop for para percorrer
-a imagem assim como feito nas outras funções feito dessa forma dentro do loop 'cor_original = self.get_pixel(x, y)', 'cor_borrada = 
-img_borrada.get_pixel(x, y)', depois disso é calculado o novo valor do pixel com 'novo_pixel = calcular_pixel(cor_original, cor_borrada)'
-e setado o novo valor da imagem 'resultado.set_pixel(x, y, novo_pixel)', dessa forma o loop acaba e é feito o filtro de intervalo como no
-filtro anterior 'resultado = resultado.aplicar_por_pixel(lambda c: max(min(round(c), 255), 0))' para garantir os pixels dentro do 
-intervalo (0, 255).
-
-	Por fim o último filtro, o filtro que detecta bordas, este funciona com a combinação de dois kernels específicos e os aplica na
-fórmula 'Ox,y = round(√Ox²x,y + Oy²x,y)'. Em código a função 'bordas()' apenas recebe uma instância de si mesma, dentro dela são feitos 
-os dois kernels necessários, chamados de 'kernel_kx' e 'kernel_ky', logo após é aplicada a correlação a ambos, criada a imagem que será 
-usada o filtro e feito um loop para percorrer a imagem assim como os anteriores, dentro desse loop é definido Ox e Oy, que no caso é 
-igual a 'get_pixel()' aplicada a cada kernel com a correlação aplicada e feito o cálculo da fórmula desse forma 'oxy = math.sqrt(ox ** 2 
-+ oy ** 2)', o resultado dessa operação é filtrado para que fique no intervalo correto e um número inteiro 'oxy = max(min(round(oxy), 
-255), 0)' e por fim o resultado é setado com uso da função 'set_pixel()'.
-
-	Dessa forma todos os filtros requiridos estão feitos, apenas falta gerar um caso de teste no arquivo test.py, para isso foi 
-criado a função 'test_invertida_2()' ela recebe apenas uma instância de si mesma, dentro dela é criada a imagem 'i = pset1.Imagem(4, 1, 
-[29, 89, 136, 200])', a essa imagem é aplicado o filtro de inversão com 'resultado = i.invertida()', criado um resultado esperado com 
-'esperado = pset1.Imagem(4, 1, [226, 166, 119, 55])' e comparando o resultado com o resultado esperado com 'self.assertEqual(resultado, 
-esperado)'.
+resulta na imagem focada, pode ser transcrevida como a fórmula 'Sx,y = round(2Ix,y - Bx,y)' sendo feita para cada pixel. Em código a
+função 'focada()' assim como a de desfoque recebe sua própria instância e um valor n para definir o nível de nitidez, começa com a
+criação de uma imagem borrada que receberá o mesmo valor de n fornecido nos parâmetros 'img_borrada = self.borrada(n)', é feita uma
+função para calcular o novos valores do pixel utilizando a fórmula antes dita, ela recebe o valor do pixel da imagem original e da imagem
+borrada, depois aplica o cálculo com 'novo_pixel = (2 * cor - borrada)' e retorna o 'novo_pixel'. Em seguida é preciso aplica-se o
+cálculo a cada pixel da imagem, então ele é colocado dentro de um loop for para percorrer a imagem assim como feito nas outras funções,
+feito dessa forma dentro do loop 'cor_original = self.get_pixel(x, y)', 'cor_borrada = img_borrada.get_pixel(x, y)', depois é calculado o
+novo valor do pixel com 'novo_pixel = calcular_pixel(cor_original, cor_borrada)' e setado o novo valor da imagem, dessa forma o loop
+acaba e é feito o filtro de intervalo como anteriormente para garantir os pixels dentro do intervalo (0, 255).
+	Por fim o filtro que detecta bordas, este funciona com a combinação de dois kernels específicos e os aplica na fórmula 'Ox,y = 
+round(√Ox²x,y + Oy²x,y)'. Em código a função 'bordas()' apenas recebe 'self', dentro dela são feitos os dois kernels necessários,, logo
+após é aplicada a correlação a ambos, criada a imagem que será usada o filtro e feito um loop para percorrer a imagem assim nos outros
+filtros, dentro desse loop é definido Ox e Oy igual a 'get_pixel()' aplicada a cada kernel com a correlação aplicada e feito o cálculo da
+fórmula 'oxy = math.sqrt(ox ** 2 + oy ** 2)', o resultado dessa operação é filtrado para que fique no intervalo correto e um número
+inteiro e o resultado é setado com 'set_pixel()'.
+	Para a geração do caso de teste foi criado a função 'test_invertida_2()' ela recebe apenas 'self', dentro dela é criada uma
+imagem e aplicado o filtro de inversão, é também criado um resultado esperado e comparado o resultado com o resultado esperado com
+'self.assertEqual(resultado, esperado)'.
 	Dessa maneira está concluída a implementação do pset1, com todos filtros funcionais e casos de testes.
