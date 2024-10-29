@@ -1,7 +1,3 @@
-Implementação do PSET1 
-Aluno: Tales Paiva Calvi
-Turma: CC4M
-
 	Inicialmente para a implementação do pset1 é pedido para utilizar o filtro de inversão, entretanto antes de realmente trabalhar 
 na função 'invertida()' é necessário corrigir erros de outras funções que agem para que essa funcione. A primeira coisa que se percebe é
 que a função 'aplicar_por_pixel()' já possui um erro de identação no loop for para o y, esse erro é corrigido acertando o espaçamento da
