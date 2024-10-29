@@ -4,7 +4,7 @@
 #
 #    Nome completo: Tales Paiva Calvi   
 #    Matrícula: 202305903
-#    Turma: CC3M
+#    Turma: CC4M
 #    Email: talespcalvi@gmail.com
 #
 # DECLARAÇÃO DE HONESTIDADE ACADÊMICA:
